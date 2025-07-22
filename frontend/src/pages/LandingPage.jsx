@@ -24,7 +24,7 @@ export default function LandingPage() {
             <span style={{ color: "#ff9839" }}>Connect </span>
             with your loved ones
           </h1>
-          <p>Cover distace by Zing Call</p>
+          <p>Cover a distace by Zing Call</p>
           <div role="button">
             <Link to={"/home"}>Get Started </Link>
           </div>
