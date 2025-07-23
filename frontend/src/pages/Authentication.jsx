@@ -36,7 +36,7 @@ export default function Authentication() {
       <Box
         sx={{
           minHeight: "100vh",
-          background: "linear-gradient(135deg, #e0f2ff 0%, #f5faff 100%)",
+          background: "linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -45,22 +45,22 @@ export default function Authentication() {
       >
         <Container component="main" maxWidth="xs">
           <Paper
-            elevation={8}
+            elevation={10}
             sx={{
               p: 4,
               borderRadius: 4,
               backdropFilter: "blur(10px)",
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
-              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "rgba(255, 255, 255, 0.85)",
+              boxShadow: "0 8px 30px rgba(0, 0, 0, 0.1)",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "#2196f3" }}>
+            <Avatar sx={{ m: 1, bgcolor: "#d97500" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
+            <Typography component="h1" variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
               {formState === 0 ? "Sign In" : "Sign Up"}
             </Typography>
 
@@ -81,7 +81,7 @@ export default function Authentication() {
               </ToggleButton>
             </ToggleButtonGroup>
 
-            <Box component="form" onSubmit={handleSubmit} noValidate>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               {formState === 1 && (
                 <TextField
                   margin="normal"
@@ -91,6 +91,7 @@ export default function Authentication() {
                   label="Full Name"
                   name="name"
                   autoComplete="name"
+                  autoFocus
                   onChange={(e) => setName(e.target.value)}
                 />
               )}
@@ -122,9 +123,9 @@ export default function Authentication() {
                   mt: 3,
                   py: 1.5,
                   fontWeight: "bold",
-                  backgroundColor: "#2196f3",
+                  backgroundColor: "#d97500",
                   "&:hover": {
-                    backgroundColor: "#1976d2",
+                    backgroundColor: "#b75d00",
                   },
                 }}
               >
