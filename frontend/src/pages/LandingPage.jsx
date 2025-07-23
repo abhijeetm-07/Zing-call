@@ -26,7 +26,7 @@ export default function LandingPage() {
           </h1>
           <p>Cover a distace by Zing Call</p>
           <div role="button">
-            <Link to={"/home"}>Get Started </Link>
+            <Link to={"/auth"}>Get Started </Link>
           </div>
         </div>
         <div>
