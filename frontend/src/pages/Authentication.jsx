@@ -9,10 +9,12 @@ import {
   Paper,
   ToggleButton,
   ToggleButtonGroup,
+  Snackbar,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 const theme = createTheme();
 
@@ -21,13 +23,31 @@ export default function Authentication() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (formState === 0) {
-      console.log("Sign In:", { username, password });
-    } else {
-      console.log("Sign Up:", { name, username, password });
+  const { handleRegister, handleLogin } = React.useContext(AuthContext);
+
+  const handleAuth = async () => {
+    try {
+      if (formState === 0) {
+        await handleLogin(username, password);
+      }
+      if (formState === 1) {
+        const result = await handleRegister(name, username, password);
+        console.log(result);
+        setMessage(result);
+        setOpen(true);
+        setUsername("");
+        setPassword("");
+        setFormState(0);
+        setError("");
+      }
+    } catch (err) {
+      console.log(err);
+      const msg = err?.response?.data?.message || "Something went wrong";
+      setError(msg);
     }
   };
 
@@ -60,7 +80,11 @@ export default function Authentication() {
             <Avatar sx={{ m: 1, bgcolor: "#d97500" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
+            <Typography
+              component="h1"
+              variant="h5"
+              sx={{ mb: 2, fontWeight: "bold" }}
+            >
               {formState === 0 ? "Sign In" : "Sign Up"}
             </Typography>
 
@@ -81,7 +105,7 @@ export default function Authentication() {
               </ToggleButton>
             </ToggleButtonGroup>
 
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               {formState === 1 && (
                 <TextField
                   margin="normal"
@@ -102,6 +126,7 @@ export default function Authentication() {
                 id="username"
                 label="Username"
                 name="username"
+                value={username}
                 autoComplete="username"
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -111,12 +136,15 @@ export default function Authentication() {
                 fullWidth
                 name="password"
                 label="Password"
+                value={password}
                 type="password"
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {error && <Typography color="error">{error}</Typography>}
+
               <Button
-                type="submit"
+                type="button"
                 fullWidth
                 variant="contained"
                 sx={{
@@ -128,13 +156,21 @@ export default function Authentication() {
                     backgroundColor: "#b75d00",
                   },
                 }}
+                onClick={handleAuth}
               >
-                {formState === 0 ? "Sign In" : "Sign Up"}
+                {formState === 0 ? "Login" : "Register"}
               </Button>
             </Box>
           </Paper>
         </Container>
       </Box>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        onClose={() => setOpen(false)}
+        message={message}
+      />
     </ThemeProvider>
   );
 }
