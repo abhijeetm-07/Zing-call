@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 
-let connection = {};
+let connections = {};
 let messages = {};
 let timeOnline = {};
 
@@ -15,6 +15,8 @@ export const connectToSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
+    console.log("Something got connected");
+    
     socket.on("join-call", (path) => {
       if (connections[path] === undefined) {
         connections[path] = [];
@@ -36,7 +38,7 @@ export const connectToSocket = (server) => {
             "chat-message",
             messages[path][a]["data"],
             messages[path][a]["sender"],
-            messages[path][a["socket-id-sender"]]
+            messages[path][a]["socket-id-sender"]
           );
         }
       }
@@ -56,7 +58,7 @@ export const connectToSocket = (server) => {
           messages[matchingRoom]=[];
         }
         messages[matchingRoom].push({'sender':sender,'data':data,'socket-id-sender':socket.id})
-        console.log("sender",key,":",sender,data);
+        console.log("sender",matchingRoom,":",sender,data);
 
         connections[matchingRoom].forEach(elem => {
           io.to(elem).emit("chat-message",data,sender,socket.id)
@@ -69,12 +71,12 @@ export const connectToSocket = (server) => {
     socket.on("disconnect", () => {
       var diffTime=Math.abs(timeOnline[socket.id]-new Date())
       var key;
-      for(const[k,v] of json.parse(json.stringify(Object.entries(connections)))){
+      for(const[k,v] of JSON.parse(JSON.stringify(Object.entries(connections)))){
         for(let a=0;a<v.length;++a){
           if(v[a]===socket.id){
             key=k;
             for(let a=0;a<connections[key].length;++a){
-              io.to(connections[key][a].emit("user-left",socket.id));
+              io.to(connections[key][a]).emit("user-left",socket.id);
             }
             var index=connections[key].indexOf(socket.id)
 
