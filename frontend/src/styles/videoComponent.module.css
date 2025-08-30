@@ -1,0 +1,55 @@
+
+.meetVideoContainer {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(7, 4, 42);
+  overflow-y: auto; 
+}
+
+.meetUserVideo {
+  position: fixed; 
+  bottom: 10vh;
+  right: 20px;
+  height: 20vh;
+  width: auto;
+  border-radius: 20px;
+  z-index: 100; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.conferenceView {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+  padding-bottom: 120px; 
+}
+
+
+.conferenceView video {
+  
+  flex: 1 1 400px; 
+  max-width: 45vw; 
+  aspect-ratio: 16 / 9; 
+  object-fit: cover; 
+  border-radius: 15px;
+  background-color: #000;
+}
+
+.buttonContainer {
+  position: fixed; 
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 15px 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  z-index: 100;
+}
+
+.buttonContainer svg {
+  font-size: 2.75rem;
+}
