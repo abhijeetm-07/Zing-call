@@ -54,7 +54,7 @@ export const connectToSocket = (server) => {
         return [room,isFound];
       }, ['',false])
       if(found===true){
-        if(messages[matchingRoom]===true){
+        if(messages[matchingRoom]===undefined){
           messages[matchingRoom]=[];
         }
         messages[matchingRoom].push({'sender':sender,'data':data,'socket-id-sender':socket.id})

@@ -52,3 +52,406 @@ font-size: 1.7rem;
   height: 65vh;
   width: auto;
 }
+
+/* Updated Home Component Styles */
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  background: linear-gradient(135deg, rgba(20, 18, 62, 0.95) 0%, rgba(7, 4, 42, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.navBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    rgba(66, 133, 244, 0.1) 0%, 
+    transparent 30%, 
+    transparent 70%, 
+    rgba(234, 67, 53, 0.1) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.navBar > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.navBar h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #4285f4 50%, #ea4335 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.navBar h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4285f4, #ea4335);
+  transition: width 0.3s ease-in-out;
+}
+
+.navBar h2:hover::after {
+  width: 100%;
+}
+
+.navBar > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navBar .MuiIconButton-root {
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.navBar .MuiIconButton-root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease-in-out;
+}
+
+.navBar .MuiIconButton-root:hover::before {
+  left: 100%;
+}
+
+.navBar .MuiIconButton-root:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.navBar .MuiIconButton-root svg {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.navBar .MuiIconButton-root p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.navBar .MuiButton-root {
+  background: linear-gradient(135deg, #ea4335 0%, #d93025 100%);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.02em;
+}
+
+.navBar .MuiButton-root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease-in-out;
+}
+
+.navBar .MuiButton-root:hover::before {
+  left: 100%;
+}
+
+.navBar .MuiButton-root:hover {
+  background: linear-gradient(135deg, #d93025 0%, #b52d20 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navBar .MuiButton-root:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3);
+}
+
+.meetContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 2rem;
+  min-height: calc(100vh - 120px);
+  background: linear-gradient(135deg, rgb(7, 4, 42) 0%, rgb(20, 18, 62) 100%);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.leftPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 600px;
+}
+
+.leftPanel > div {
+  background: rgba(20, 18, 62, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  width: 100%;
+}
+
+.leftPanel h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.leftPanel > div > div {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  align-items: flex-end;
+}
+
+.leftPanel .MuiTextField-root {
+  flex: 1;
+}
+
+.leftPanel .MuiTextField-root .MuiOutlinedInput-root {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+
+.leftPanel .MuiTextField-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  border-width: 2px;
+}
+
+.leftPanel .MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.leftPanel .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #4285f4 !important;
+}
+
+.leftPanel .MuiTextField-root .MuiInputLabel-root {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 1.1rem;
+}
+
+.leftPanel .MuiOutlinedInput-input {
+  color: white;
+  font-size: 1.1rem;
+  padding: 1rem;
+}
+
+.leftPanel .MuiButton-root {
+  background: linear-gradient(135deg, #4285f4 0%, #1976d2 100%);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-transform: none;
+  box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+  transition: all 0.2s ease-in-out;
+  min-width: 120px;
+}
+
+.leftPanel .MuiButton-root:hover {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+  transform: translateY(-1px);
+}
+
+.rightPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 500px;
+}
+
+.rightPanel > img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.rightPanel > img:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .meetContainer {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 1.5rem;
+  }
+  
+  .leftPanel h2 {
+    font-size: 2rem;
+  }
+  
+  .rightPanel {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navBar {
+    padding: 1rem 1.5rem;
+  }
+  
+  .navBar h2 {
+    font-size: 1.6rem;
+  }
+  
+  .navBar > div:last-child {
+    gap: 1rem;
+  }
+  
+  .navBar .MuiIconButton-root {
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .navBar .MuiIconButton-root svg {
+    font-size: 1.2rem;
+  }
+  
+  .navBar .MuiIconButton-root p {
+    font-size: 0.7rem;
+  }
+  
+  .navBar .MuiButton-root {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .meetContainer {
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .leftPanel > div {
+    padding: 2rem;
+  }
+  
+  .leftPanel h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .leftPanel > div > div {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .leftPanel .MuiButton-root {
+    width: 100%;
+  }
+  
+  .rightPanel {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navBar {
+    padding: 0.8rem 1rem;
+  }
+  
+  .navBar h2 {
+    font-size: 1.4rem;
+  }
+  
+  .navBar > div:last-child {
+    gap: 0.8rem;
+  }
+  
+  .navBar .MuiIconButton-root {
+    padding: 0.5rem 0.6rem;
+  }
+  
+  .navBar .MuiIconButton-root svg {
+    font-size: 1.1rem;
+  }
+  
+  .navBar .MuiIconButton-root p {
+    font-size: 0.65rem;
+  }
+  
+  .navBar .MuiButton-root {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .leftPanel > div {
+    padding: 1.5rem;
+  }
+  
+  .leftPanel h2 {
+    font-size: 1.5rem;
+  }
+}
