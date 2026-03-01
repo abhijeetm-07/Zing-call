@@ -10,13 +10,21 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Snackbar,
+  Alert,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
-const theme = createTheme();
+// Standardizing the theme to match the Royal Blue style
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#0B57D0",
+    },
+  },
+});
 
 export default function Authentication() {
   const [formState, setFormState] = useState(0); // 0 = Sign In, 1 = Sign Up
@@ -36,7 +44,6 @@ export default function Authentication() {
       }
       if (formState === 1) {
         const result = await handleRegister(name, username, password);
-        console.log(result);
         setMessage(result);
         setOpen(true);
         setUsername("");
@@ -45,9 +52,14 @@ export default function Authentication() {
         setError("");
       }
     } catch (err) {
-      console.log(err);
       const msg = err?.response?.data?.message || "Something went wrong";
       setError(msg);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleAuth();
     }
   };
 
@@ -56,7 +68,7 @@ export default function Authentication() {
       <Box
         sx={{
           minHeight: "100vh",
-          background: "linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)",
+          bgcolor: "#F8F9FA", // Clean light grey background
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -65,101 +77,168 @@ export default function Authentication() {
       >
         <Container component="main" maxWidth="xs">
           <Paper
-            elevation={10}
+            elevation={0}
             sx={{
               p: 4,
-              borderRadius: 4,
-              backdropFilter: "blur(10px)",
-              backgroundColor: "rgba(255, 255, 255, 0.85)",
-              boxShadow: "0 8px 30px rgba(0, 0, 0, 0.1)",
+              borderRadius: "16px",
+              bgcolor: "#FFFFFF",
+              border: "1px solid #E3E3E3",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "#d97500" }}>
+            {/* Minimalist Icon */}
+            <Avatar
+              sx={{
+                m: 1,
+                bgcolor: "#F0F4F9",
+                color: "#0B57D0",
+                width: 50,
+                height: 50,
+              }}
+            >
               <LockOutlinedIcon />
             </Avatar>
+
             <Typography
               component="h1"
               variant="h5"
-              sx={{ mb: 2, fontWeight: "bold" }}
+              sx={{
+                mb: 1,
+                fontWeight: 500,
+                color: "#1F1F1F",
+              }}
             >
-              {formState === 0 ? "Sign In" : "Sign Up"}
+              {formState === 0 ? "Sign in" : "Create account"}
             </Typography>
 
+            <Typography variant="body2" sx={{ color: "#444746", mb: 3 }}>
+              Use your Zing Call Account
+            </Typography>
+
+            {/* Toggle Between Login/Signup */}
             <ToggleButtonGroup
               value={formState}
               exclusive
               onChange={(e, value) => {
-                if (value !== null) setFormState(value);
+                if (value !== null) {
+                  setFormState(value);
+                  setError("");
+                }
               }}
               fullWidth
-              sx={{ mb: 3 }}
+              sx={{
+                mb: 2,
+                "& .MuiToggleButton-root": {
+                  textTransform: "none",
+                  fontWeight: 500,
+                  borderRadius: "8px",
+                  py: 1,
+                },
+                "& .Mui-selected": {
+                  bgcolor: "#D2E3FC !important",
+                  color: "#0B57D0 !important",
+                },
+              }}
             >
-              <ToggleButton value={0} sx={{ textTransform: "none" }}>
-                Sign In
-              </ToggleButton>
-              <ToggleButton value={1} sx={{ textTransform: "none" }}>
-                Sign Up
-              </ToggleButton>
+              <ToggleButton value={0}>Login</ToggleButton>
+              <ToggleButton value={1}>Register</ToggleButton>
             </ToggleButtonGroup>
 
-            <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ width: "100%" }}>
               {formState === 1 && (
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  id="name"
                   label="Full Name"
-                  name="name"
-                  autoComplete="name"
                   autoFocus
                   onChange={(e) => setName(e.target.value)}
+                  variant="outlined"
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "8px",
+                      bgcolor: "#F8F9FA",
+                    },
+                  }}
                 />
               )}
+
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="username"
                 label="Username"
-                name="username"
                 value={username}
-                autoComplete="username"
                 onChange={(e) => setUsername(e.target.value)}
+                onKeyPress={handleKeyPress}
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
+                    bgcolor: "#F8F9FA",
+                  },
+                }}
               />
+
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
                 label="Password"
                 value={password}
                 type="password"
-                id="password"
                 onChange={(e) => setPassword(e.target.value)}
-              />
-              {error && <Typography color="error">{error}</Typography>}
-
-              <Button
-                type="button"
-                fullWidth
-                variant="contained"
+                onKeyPress={handleKeyPress}
+                variant="outlined"
                 sx={{
-                  mt: 3,
-                  py: 1.5,
-                  fontWeight: "bold",
-                  backgroundColor: "#d97500",
-                  "&:hover": {
-                    backgroundColor: "#b75d00",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
+                    bgcolor: "#F8F9FA",
                   },
                 }}
-                onClick={handleAuth}
+              />
+
+              {error && (
+                <Alert severity="error" sx={{ mt: 2, borderRadius: "8px" }}>
+                  {error}
+                </Alert>
+              )}
+
+              <Box
+                sx={{
+                  mt: 4,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                {formState === 0 ? "Login" : "Register"}
-              </Button>
+                <Button
+                  onClick={() => setFormState(formState === 0 ? 1 : 0)}
+                  sx={{ textTransform: "none", fontWeight: 600 }}
+                >
+                  {formState === 0 ? "Create account" : "Sign in instead"}
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="contained"
+                  disableElevation
+                  onClick={handleAuth}
+                  sx={{
+                    px: 4,
+                    py: 1.2,
+                    borderRadius: "24px",
+                    textTransform: "none",
+                    fontWeight: 600,
+                    bgcolor: "#0B57D0",
+                    "&:hover": { bgcolor: "#0842A0" },
+                  }}
+                >
+                  {formState === 0 ? "Next" : "Register"}
+                </Button>
+              </Box>
             </Box>
           </Paper>
         </Container>
@@ -169,8 +248,11 @@ export default function Authentication() {
         open={open}
         autoHideDuration={4000}
         onClose={() => setOpen(false)}
-        message={message}
-      />
+      >
+        <Alert onClose={() => setOpen(false)} severity="success">
+          {message}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 }
