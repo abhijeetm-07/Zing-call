@@ -13,7 +13,7 @@ connectToSocket(server);
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }),
 );
@@ -30,9 +30,7 @@ app.use("/api/v1/users", userRoutes);
 // --- Mongo + Server Start ---
 const start = async () => {
   try {
-    const connectionDb = await mongoose.connect(
-      "mongodb+srv://abhijeetmnitt:YKGe6G4uEz4fZlNF@cluster0.jpylg81.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    );
+    const connectionDb = await mongoose.connect(process.env.MONGO_URI);
 
     console.log(`Mongo connected: ${connectionDb.connection.host}`);
 
