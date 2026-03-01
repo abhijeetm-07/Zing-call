@@ -14,7 +14,7 @@ import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
 import ChatIcon from "@mui/icons-material/Chat";
 
-const server_url = "http://localhost:8000";
+const server_url = import.meta.env.VITE_API_URL;
 const connections = {};
 
 const peerConfigConnections = {
@@ -230,8 +230,10 @@ function VideoMeetComponent() {
   };
 
   const connectToSocketServer = () => {
-    socketRef.current = io(server_url, { secure: false });
-
+    socketRef.current = io(server_url, {
+      withCredentials: true,
+      transports: ["websocket"],
+    });
     socketRef.current.on("connect", () => {
       socketRef.current.emit("join-call", window.location.href);
       socketIdRef.current = socketRef.current.id;
