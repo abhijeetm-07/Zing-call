@@ -1,4 +1,4 @@
-```markdown
+
 # Zing Call
 
 Zing Call is a high-performance, real-time video conferencing application. It enables users to connect instantly through secure video meetings, featuring a robust backend for signaling and a responsive frontend for a seamless user experience.
